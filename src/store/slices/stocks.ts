@@ -4,7 +4,13 @@ import { createAsyncThunk, createDraftSafeSelector, createSlice } from "@reduxjs
 import { RootState } from "../index";
 
 export type Stock = {
+    symbol: string;
     name: string;
+    exchange: string;
+    assetType: string;
+    ipoDate: string;
+    delistingDate: string;
+    status: string;
 };
 
 type InitialStateStockReducer = {
