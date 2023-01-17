@@ -14,8 +14,10 @@ function App() {
     const [second, setSecond] = useState<Stock | null>(null);
 
     useEffect(() => {
-        dispatch(getStocks());
-    }, []);
+        if (stocks.length === 0) {
+            dispatch(getStocks());
+        }
+    }, [stocks]);
 
     return (
         <Page container spacing={2}>
