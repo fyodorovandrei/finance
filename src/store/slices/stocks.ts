@@ -2,6 +2,7 @@ import axios from "axios";
 import csvToJson from "csvtojson";
 import { createAsyncThunk, createDraftSafeSelector, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../index";
+import moment from "moment";
 
 export type Stock = {
     symbol: string;
@@ -35,7 +36,9 @@ const parseCSV = async (data: string): Promise<Stock[]> =>
 export const getStocks = createAsyncThunk<Stock[], void>(`stocks/get`, async (values, thunkApi) => {
     try {
         const res = await axios.get(
-            `${process.env.REACT_APP_API_URL}/query?function=LISTING_STATUS&status=active&apikey=${process.env.REACT_APP_API_KEY}`,
+            `${process.env.REACT_APP_API_URL}/query?function=LISTING_STATUS&status=active&apikey=${
+                process.env.REACT_APP_API_KEY
+            }&date=${moment().format("YYYY-MM-DD")}`,
             { headers: { "Content-Type": "application/json" } },
         );
 
