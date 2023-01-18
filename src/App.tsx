@@ -7,6 +7,7 @@ import { getStockPrices, selectPrices } from "./store/slices/prices";
 import { AppDispatch } from "./store";
 import { StockAutocomplete, Page, StockAutocompleteDivider } from "./components";
 import PriceChart from "./components/PriceChart";
+import PriceComparisonChart from "./components/PriceComparisonChart";
 
 function App() {
     const dispatch = useDispatch<AppDispatch>();
@@ -66,6 +67,14 @@ function App() {
             <Grid item xs={6}>
                 {second && prices[second.symbol] && (
                     <PriceChart stock={second} data={prices[second.symbol]} />
+                )}
+            </Grid>
+            <Grid item xs={12}>
+                {first && prices[first.symbol] && second && prices[second.symbol] && (
+                    <PriceComparisonChart
+                        stocks={[first, second]}
+                        between={[prices[first.symbol], prices[second.symbol]]}
+                    />
                 )}
             </Grid>
         </Page>
