@@ -14,8 +14,13 @@ import { Line } from "react-chartjs-2";
 import { Price } from "../store/slices/prices";
 import { Stock } from "../store/slices/stocks";
 import { TooltipItem } from "chart.js/dist/types";
+import { styled } from "@mui/material/styles";
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
+
+const FixedHeight = styled("div")`
+    height: 450px;
+`;
 
 type Props = {
     stocks: Stock[];
@@ -44,6 +49,7 @@ const PriceComparisonChart: React.FC<Props> = ({ stocks, between }) => {
 
     const options = {
         responsive: true,
+        maintainAspectRatio: false,
         interaction: {
             mode: "index" as const,
             intersect: false,
@@ -101,7 +107,11 @@ const PriceComparisonChart: React.FC<Props> = ({ stocks, between }) => {
         ],
     };
 
-    return <Line options={options} data={chartData} />;
+    return (
+        <FixedHeight>
+            <Line options={options} data={chartData} />
+        </FixedHeight>
+    );
 };
 
 export default PriceComparisonChart;
